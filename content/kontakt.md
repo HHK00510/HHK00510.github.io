@@ -5,7 +5,7 @@ type: "page"
 
 Kontakta oss gärna! Fyll i formuläret nedan så återkommer vi så snart vi kan.
 
-<form action="https://formsubmit.co/kristin@hundhalsakunskap" method="POST" class="mb-4">
+<form action="https://formsubmit.co/kristin@hundhalsakunskap.se" method="POST" class="mb-4">
   <input type="hidden" name="_subject" value="Nytt meddelande från HHK-webbplatsen">
   <input type="hidden" name="_captcha" value="true">
   <input type="hidden" name="_template" value="table">
