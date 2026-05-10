@@ -1,0 +1,22 @@
+// Sky blue theme for Hund Hälsa Kunskap
+$primary: #90E0F9;
+$secondary: #6c757d;
+$success: #28a745;
+$danger: #dc3545;
+$info: #17a2b8;
+$warning: #ffc107;
+$light: #f8f9fa;
+$dark: #343a40;
+$body-bg: #ffffff;
+
+// Shared styles
+@import "main.scss";
+
+// Bootstrap
+@import "./bootstrap/bootstrap";
+
+// Shared styles overrides
+@import "main2.scss";
+
+.navbar-light { background-color: #ffffff !important; }
+a.badge:hover { color: $body-bg; }

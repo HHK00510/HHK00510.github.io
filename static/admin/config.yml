@@ -1,0 +1,81 @@
+# =============================================================================
+# Sveltia CMS Configuration
+# =============================================================================
+#
+# LOGIN:
+#   Visit https://hhk00510.github.io/admin/ and sign in with a GitHub
+#   Personal Access Token (PAT). Create one at:
+#   https://github.com/settings/tokens/new
+#   (select "repo" scope)
+#
+# =============================================================================
+
+backend:
+  name: github
+  repo: hhk00510/hhk00510.github.io
+  branch: main
+
+media_folder: static/img/uploads
+public_folder: /img/uploads
+
+locale: sv
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  - name: blog
+    label: "Blogg"
+    folder: content/post
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: yaml-frontmatter
+    fields:
+      - { label: "Titel", name: title, widget: string }
+      - { label: "Datum", name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Taggar", name: tags, widget: list, required: false }
+      - { label: "Kategorier", name: categories, widget: list, required: false }
+      - { label: "Innehåll", name: body, widget: markdown }
+
+  - name: pages
+    label: "Sidor"
+    editor:
+      preview: false
+    files:
+      - label: "Om oss"
+        name: about
+        file: content/about.md
+        fields:
+          - { label: "Titel", name: title, widget: string }
+          - { label: "Typ", name: type, widget: hidden, default: "page" }
+          - { label: "Innehåll", name: body, widget: markdown }
+      - label: "Kurser"
+        name: kurser
+        file: content/kurser.md
+        fields:
+          - { label: "Titel", name: title, widget: string }
+          - { label: "Typ", name: type, widget: hidden, default: "page" }
+          - { label: "Innehåll", name: body, widget: markdown }
+      - label: "Priser"
+        name: priser
+        file: content/priser.md
+        fields:
+          - { label: "Titel", name: title, widget: string }
+          - { label: "Typ", name: type, widget: hidden, default: "page" }
+          - { label: "Innehåll", name: body, widget: markdown }
+      - label: "Schema"
+        name: schema
+        file: content/schema.md
+        fields:
+          - { label: "Titel", name: title, widget: string }
+          - { label: "Typ", name: type, widget: hidden, default: "page" }
+          - { label: "Innehåll", name: body, widget: markdown }
+      - label: "Kontakt"
+        name: kontakt
+        file: content/kontakt.md
+        fields:
+          - { label: "Titel", name: title, widget: string }
+          - { label: "Typ", name: type, widget: hidden, default: "page" }
+          - { label: "Innehåll", name: body, widget: markdown }

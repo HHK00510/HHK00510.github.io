@@ -1,0 +1,104 @@
+baseURL = "https://hhk00510.github.io/"
+title = "Hund Hälsa Kunskap"
+theme = "bootstrap-bp"
+DefaultContentLanguage = "sv"
+languageCode = "sv"
+enableRobotsTXT = true
+canonifyurls = true
+
+[pagination]
+  pagerSize = 6
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+
+[permalinks]
+  post = "/:year/:month/:slug/"
+  page = "/:slug/"
+
+[params]
+  description = "Hundträning, hälsa och kunskap"
+  showPostSummary = true
+  customDateFormat = "2006-01-02"
+  themeColor = "skyblue"
+
+[params.author]
+  name = "Hund Hälsa Kunskap"
+
+[params.social]
+  instagram = "hundhalsakunskap"
+
+[menu]
+
+  [[menu.main]]
+    identifier = "about"
+    name = "Om oss"
+    url = "/about/"
+    weight = 10
+    pre = "<i class='fas fa-users'></i>"
+
+  [[menu.main]]
+    identifier = "blog"
+    name = "Blogg"
+    url = "/post/"
+    weight = 20
+    pre = "<i class='fas fa-blog'></i>"
+
+  [[menu.main]]
+    identifier = "kurser"
+    name = "Kurser"
+    url = "/kurser/"
+    weight = 30
+    pre = "<i class='fas fa-graduation-cap'></i>"
+
+  [[menu.main]]
+    identifier = "priser"
+    name = "Priser"
+    url = "/priser/"
+    weight = 40
+    pre = "<i class='fas fa-tag'></i>"
+
+  [[menu.main]]
+    identifier = "schema"
+    name = "Schema"
+    url = "/schema/"
+    weight = 50
+    pre = "<i class='fas fa-calendar-alt'></i>"
+
+  [[menu.main]]
+    identifier = "kontakt"
+    name = "Kontakt"
+    url = "/kontakt/"
+    weight = 60
+    pre = "<i class='fas fa-envelope'></i>"
+
+  [[menu.footer]]
+    identifier = "about"
+    name = "Om oss"
+    url = "/about/"
+    weight = 10
+    pre = "<i class='fas fa-users'></i>"
+
+  [[menu.footer]]
+    identifier = "kurser"
+    name = "Kurser"
+    url = "/kurser/"
+    weight = 20
+    pre = "<i class='fas fa-graduation-cap'></i>"
+
+  [[menu.footer]]
+    identifier = "kontakt"
+    name = "Kontakt"
+    url = "/kontakt/"
+    weight = 30
+    pre = "<i class='fas fa-envelope'></i>"
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

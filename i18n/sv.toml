@@ -1,0 +1,39 @@
+[readmore]
+other = "Läs mer"
+
+[lastupdated]
+other = "senast uppdaterad"
+
+[readingTime]
+one = "1 minut"
+other = "{{.Count}} minuter"
+
+[social]
+other = "Sociala medier"
+
+[site]
+other = "Sidan"
+
+[translations]
+other = "Översättningar"
+
+[themeby]
+other = "Tema av"
+
+[error404]
+other = "Vi är ledsna men sidan kunde inte hittas."
+
+[gotohome]
+other = "Gå till startsidan"
+
+[Categories]
+other = "Kategorier"
+
+[Categorie]
+other = "Kategori"
+
+[Tags]
+other = "Taggar"
+
+[Tag]
+other = "Tagg"

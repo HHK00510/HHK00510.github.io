@@ -1,0 +1,44 @@
+/* Hund Hälsa Kunskap – custom overrides */
+body {
+  background-color: #ffffff;
+}
+
+.navbar {
+  background-color: #ffffff !important;
+  border-bottom: 2px solid #90E0F9 !important;
+}
+
+.navbar-brand {
+  color: #0a7ea8 !important;
+  font-weight: bold;
+}
+
+a.link-primary {
+  color: #0a7ea8 !important;
+}
+
+a.link-primary:hover {
+  color: #065a78 !important;
+}
+
+.btn-primary {
+  background-color: #90E0F9;
+  border-color: #90E0F9;
+  color: #000;
+}
+
+.btn-primary:hover {
+  background-color: #6dd4f5;
+  border-color: #6dd4f5;
+  color: #000;
+}
+
+.hero-banner {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+footer {
+  background-color: #f8f9fa !important;
+}
