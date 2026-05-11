@@ -1,10 +1,9 @@
-baseURL = "https://hhk00510.github.io/"
+baseURL = "https://hundhalsakunskap.se/"
 title = "Hund Hälsa Kunskap"
 theme = "bootstrap-bp"
 DefaultContentLanguage = "sv"
 languageCode = "sv"
 enableRobotsTXT = true
-canonifyurls = true
 
 [pagination]
   pagerSize = 6

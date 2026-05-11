@@ -1,0 +1,4 @@
+This is straightforward — just two steps:
+
+1. Move enzo_webb–etta.jpg to static/img/
+2. Update the <img> src in layouts/index.html

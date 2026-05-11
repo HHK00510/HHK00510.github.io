@@ -44,7 +44,7 @@ jobs:
         run: |
           hugo \
             --minify \
-            --baseURL "https://hhk00510.github.io/"
+            --baseURL "https://hundhalsakunskap.se/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
