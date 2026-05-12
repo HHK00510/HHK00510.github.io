@@ -28,3 +28,5 @@ Pris 1990 kr
 Kantarellsök Intensiv 4-5 juli Lördag och Söndag 10:00-13:00, Söderhamn, Älgnäs 
 
 Pris 1990 kr
+
+[Anmäl via denna länk ](https://hundhalsakunskap.se/kontakt/)
