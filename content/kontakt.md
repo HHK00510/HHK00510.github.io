@@ -1,9 +1,9 @@
 ---
-title: "Kontakt"
-type: "page"
+title: Kontakt
+type: page
 ---
 
-Kontakta oss gärna! Fyll i formuläret nedan så återkommer vi så snart vi kan.
+Här kan du anmäla dig till kurser eller skriva om du har frågor och önskar kontakt. Vi återkommer alltid inom 24 timmar
 
 <form action="https://formsubmit.co/kristin@hundhalsakunskap.se" method="POST" class="mb-4">
   <input type="hidden" name="_subject" value="Nytt meddelande från HHK-webbplatsen">
