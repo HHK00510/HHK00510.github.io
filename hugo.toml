@@ -18,6 +18,7 @@ enableRobotsTXT = true
 
 [params]
   description = "Hundträning, hälsa och kunskap"
+  images = ["img/enzo_webb–etta.jpg"]
   showPostSummary = true
   customDateFormat = "2006-01-02"
   themeColor = "skyblue"
