@@ -1,46 +1,41 @@
 hero:
-  floating_quote: Pedagogiskt, tryggt och superroligt!
-  primary_cta_link: "#kurser"
-  floating_quote_author: Hund Hälsa Kunskap
+  location_badge: Sollentuna & norra Stockholm
+  title: Glädjefylld & belöningsbaserad hundträning
+  description: Bygg en stark, trygg och harmonisk relation med din hund. Vi erbjuder moderna valpkurser, vardagsträning, kantarellsök och privatträning baserad på glädje, samarbete och positiva inlärningsmetoder.
+  primary_cta_text: Se aktuella kurser
+  primary_cta_link: '#kurser'
   secondary_cta_text: Privat rådgivning
-  secondary_cta_link: "#privat"
+  secondary_cta_link: '#privat'
+  image: /img/enzo05_webb.jpg
+  floating_quote: Pedagogiskt, tryggt och superroligt!
+  floating_quote_author: Hund Hälsa Kunskap
   trust_badges:
     - icon: fa-solid fa-certificate
       text: Diplomerad instruktör (Glada Jyckar)
     - icon: fa-solid fa-heart
       text: 100% belöningsbaserad
-  title: Glädjefylld & belöningsbaserad hundträning
-  location_badge: Sollentuna & norra Stockholm
-  primary_cta_text: Se aktuella kurser
-  image: /img/enzo05_webb.jpg
-  description: Bygg en stark, trygg och harmonisk relation med din hund. Vi
-    erbjuder moderna valpkurser, vardagsträning, kantarellsök och privatträning
-    baserad på glädje, samarbete och positiva inlärningsmetoder.
 courses_section:
   subtitle: Kurser & workshops
   title: Aktuellt kursutbud i Sollentuna
 private_training:
   badge: Skräddarsydd lösning
   title: Privat hundträning & rådgivning
-  description: Har du svårt att få kurstiderna att passa, eller behöver du hjälp
-    med specifika utmaningar som hundmöten, koppeldrag, skällande, reaktivitet
-    eller ensamhetsträning? Vi skapar en personlig träningsplan anpassad för er
-    vardag.
+  description: Har du svårt att få kurstiderna att passa, eller behöver du hjälp med specifika utmaningar som hundmöten, koppeldrag, skällande, reaktivitet eller ensamhetsträning? Vi skapar en personlig träningsplan anpassad för er vardag.
   features:
     - Hembesök eller träning i er närmiljö i Sollentuna & norra Stockholm
     - Noggrann analys av er situation och hundens behov och förutsättningar
     - Skriftlig träningsplan & coaching via e-post/telefon efteråt
   pricing_title: Priser privatträning
   pricing_packages:
-    - name: Första konsultering (75 min)
-      price: 1 250 kr
+    - name: Första konsultering (60 min)
+      price: 850 kr
       detail: Inkluderar kartläggning och skriftlig träningsplan.
     - name: Uppföljning (60 min)
       price: 850 kr
       detail: Praktisk träning och justeringar.
     - name: Klippkort 3 x 60 min
-      price: 2 300 kr
-      detail: Spara 250 kr vid paketerad träning.
+      price: 1 910 kr
+      detail: Spara 640 kr när du köper ett paket.
   cta_text: Boka privatkonsultation
 about:
   subtitle: Om Hund Hälsa Kunskap
@@ -49,16 +44,9 @@ about:
   badge_name: Kristin Ivarsson
   badge_title: Diplomerad instruktör
   paragraphs:
-    - Jag driver Hund Hälsa Kunskap med en stor passion för hundars välmående
-      och en positiv, givande kommunikation mellan hund och ägare. Min
-      målsättning är att ge er verktygen för ett harmoniskt samliv byggt på
-      förståelse, trygghet och glädje istället för krav och korrigeringar.
-    - Jag är utbildad och diplomerad hundinstruktör samt kantarellsöksinstruktör
-      via Glada Jyckar AB och vidareutbildar mig kontinuerligt inom hundens
-      etiologi, friskvård, berikning och belöningsbaserade träningsmetoder.
-    - I grunden är jag specialistsjuksköterska sedan över 15 år och vårdlärare,
-      med stort engagemang för hälsofrämjande arbete och pedagogik. Bland annat
-      drev jag projektet Senior med Hund i Sollentuna Kommun.
+    - Jag driver Hund Hälsa Kunskap med en stor passion för hundars välmående och en positiv, givande kommunikation mellan hund och ägare. Min målsättning är att ge er verktygen för ett harmoniskt samliv byggt på förståelse, trygghet och glädje istället för krav och korrigeringar.
+    - Jag är utbildad och diplomerad hundinstruktör samt kantarellsöksinstruktör via Glada Jyckar AB och vidareutbildar mig kontinuerligt inom hundens etiologi, friskvård, berikning och belöningsbaserade träningsmetoder.
+    - I grunden är jag specialistsjuksköterska sedan över 15 år och vårdlärare, med stort engagemang för hälsofrämjande arbete och pedagogik. Bland annat drev jag projektet Senior med Hund i Sollentuna Kommun.
   qualifications:
     - Diplomerad hundinstruktör
     - Kantarellsöksinstruktör
@@ -69,6 +57,4 @@ contact:
   email: kristin@hundhalsakunskap.se
   instagram: hundhalsakunskap
   location: Sollentuna (Fågelsångsparken, Törnskogen, Sollentuna C)
-  service_area: Vi håller kurser och privatträningar i Sollentuna, Helenelund,
-    Rotebro, Edsberg, Silverdal, Täby, Danderyd och övriga Norrort i Stockholm
-    samt sommarkurser i Söderhamn.
+  service_area: Vi håller kurser och privatträningar i Sollentuna, Helenelund, Rotebro, Edsberg, Silverdal, Täby, Danderyd och övriga Norrort i Stockholm samt sommarkurser i Söderhamn.
