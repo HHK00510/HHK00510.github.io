@@ -1,13 +1,14 @@
 ---
 title: Välkomna till Hund Hälsa Kunskap
-date: 2026-05-10
+date: 2026-09-08
 tags:
   - hundträning
   - välkommen
 categories:
   - Nyheter
 ---
+Välkomna till Hund Hälsa Kunskap!
 
-Välkomna till Hund Hälsa Kunskap! Vi är glada att lansera vår nya webbplats där vi delar kunskap om hundträning, hälsa och välmående för din hund.
+Vi erbjuder hundkurser med fokus på hundens och ägarens behov 
 
-För att fira vår nylansering erbjuder vi 20% rabatt fram till 31 maj. Använd koden HHKmaj20 i ämnesraden när du mailar in din anmälan. [Våra kurser hittar du här](https://hundhalsakunskap.se/kurser/)
+Vi har kurser i liten grupp och privatlektioner.
