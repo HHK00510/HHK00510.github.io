@@ -1,12 +1,11 @@
 # =============================================================================
-# Sveltia CMS Configuration
+# Sveltia CMS & Decap CMS Konfiguration
 # =============================================================================
 #
-# LOGIN:
-#   Visit https://hhk00510.github.io/admin/ and sign in with a GitHub
-#   Personal Access Token (PAT). Create one at:
+# INLOGGNING:
+#   Besök https://hhk00510.github.io/admin/ eller http://localhost:1313/admin/
+#   Logga in med en GitHub Personal Access Token (PAT) med "repo"-behörighet:
 #   https://github.com/settings/tokens/new
-#   (select "repo" scope)
 #
 # =============================================================================
 
@@ -15,8 +14,10 @@ backend:
   repo: hhk00510/hhk00510.github.io
   branch: main
 
-media_folder: static/img/uploads
-public_folder: /img/uploads
+local_backend: true
+
+media_folder: static/img
+public_folder: /img
 
 locale: sv
 
@@ -25,8 +26,160 @@ slug:
   clean_accents: true
 
 collections:
+  # ---------------------------------------------------------------------------
+  # 1. KURSER & WORKSHOPS (Folder Collection)
+  # ---------------------------------------------------------------------------
+  - name: kurser
+    label: "Kurser & Workshops"
+    label_singular: "Kurs"
+    folder: content/kurser
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} [{{category_label}}] ({{status_badge}})"
+    sortable_fields: ["weight", "title", "category"]
+    view_filters:
+      - label: "Valpkurser"
+        field: category
+        pattern: "valp"
+      - label: "Vardagslydnad"
+        field: category
+        pattern: "vardag"
+      - label: "Sök & aktivering"
+        field: category
+        pattern: "sok"
+      - label: "Temakurser"
+        field: category
+        pattern: "tema"
+    fields:
+      - { label: "Kursnamn (Titel)", name: title, widget: string, hint: "T.ex. Valpkurs: Bästa starten" }
+      - label: "Kategori"
+        name: category
+        widget: select
+        options:
+          - { label: "Valpkurs", value: "valp" }
+          - { label: "Vardagslydnad", value: "vardag" }
+          - { label: "Sök & aktivering", value: "sok" }
+          - { label: "Temakurs", value: "tema" }
+        default: "valp"
+      - { label: "Kategorietikett på kortet", name: category_label, widget: string, default: "Valp", hint: "Text som visas i den gröna brickan (t.ex. Valp, Vardagslydnad, Kantarellsök)" }
+      - { label: "Statusbricka", name: status_badge, widget: string, required: false, default: "Öppen för anmälan", hint: "T.ex. Öppen för anmälan, Få platser kvar, Populär, Fullbokad" }
+      - label: "Färg på statusbricka"
+        name: badge_color
+        widget: select
+        options:
+          - { label: "Grön (Få platser / Rekommenderas)", value: "emerald" }
+          - { label: "Blå (Öppen för anmälan)", value: "blue" }
+          - { label: "Gul / Orange (Populär)", value: "accent" }
+          - { label: "Röd (Fullbokad)", value: "red" }
+          - { label: "Grå (Neutral)", value: "stone" }
+        default: "emerald"
+      - { label: "Kursbild", name: image, widget: image, default: "/img/enzo03_webb.jpg" }
+      - { label: "Kort beskrivning (visas på kortet)", name: description, widget: text, hint: "Kort och säljande sammanfattning som ryms på kurskortet." }
+      - { label: "Startdatum & schema", name: start_date, widget: string, default: "Lördag 11 April (5 tillfällen)", hint: "T.ex. Tisdagar kl 18:00 start 12 maj" }
+      - { label: "Plats", name: location, widget: string, default: "Fågelsångsparken, Sollentuna" }
+      - { label: "Pris", name: price, widget: string, default: "1 850 kr" }
+      - { label: "Sorteringsordning", name: weight, widget: number, default: 1, value_type: int, hint: "Lägre nummer visas först (1, 2, 3...)" }
+      - { label: "Visa på startsidan", name: active, widget: boolean, default: true }
+      - { label: "Utförlig kursbeskrivning (frivillig)", name: body, widget: markdown, required: false }
+
+  # ---------------------------------------------------------------------------
+  # 2. STARTSIDANS SEKTIONER (File Collection)
+  # ---------------------------------------------------------------------------
+  - name: homepage
+    label: "Startsida (Sektioner)"
+    files:
+      - label: "Startsidans sektioner"
+        name: homepage_sections
+        file: data/homepage.yml
+        editor:
+          preview: false
+        fields:
+          # Hero Sektion
+          - label: "1. Hero-sektion (Toppsektionen)"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Platsbricka", name: location_badge, widget: string, default: "Sollentuna & norra Stockholm" }
+              - { label: "Huvudrubrik (H1)", name: title, widget: string }
+              - { label: "Ingresstext", name: description, widget: text }
+              - { label: "Knapp 1 (Primär) text", name: primary_cta_text, widget: string, default: "Se aktuella kurser" }
+              - { label: "Knapp 1 länk", name: primary_cta_link, widget: string, default: "#kurser" }
+              - { label: "Knapp 2 (Sekundär) text", name: secondary_cta_text, widget: string, default: "Privat rådgivning" }
+              - { label: "Knapp 2 länk", name: secondary_cta_link, widget: string, default: "#privat" }
+              - { label: "Herobild", name: image, widget: image, default: "/img/enzo05_webb.jpg" }
+              - { label: "Citat på herobild", name: floating_quote, widget: string, default: "Pedagogiskt, tryggt och superroligt!" }
+              - { label: "Avsändare på citat", name: floating_quote_author, widget: string, default: "Hund Hälsa Kunskap" }
+              - label: "Förtroendemärken (under knapparna)"
+                name: trust_badges
+                widget: list
+                fields:
+                  - { label: "FontAwesome ikon-klass", name: icon, widget: string, default: "fa-solid fa-certificate" }
+                  - { label: "Märkes-text", name: text, widget: string }
+
+          # Kurser Sektionsrubriker
+          - label: "2. Kurssektionens rubriker"
+            name: courses_section
+            widget: object
+            fields:
+              - { label: "Underrubrik", name: subtitle, widget: string, default: "Kurser & workshops" }
+              - { label: "Huvudrubrik", name: title, widget: string, default: "Aktuellt kursutbud i Sollentuna" }
+
+          # Privat Hundträning
+          - label: "3. Privat hundträning"
+            name: private_training
+            widget: object
+            fields:
+              - { label: "Överrubrik / Märke", name: badge, widget: string, default: "Skräddarsydd lösning" }
+              - { label: "Rubrik", name: title, widget: string, default: "Privat hundträning & rådgivning" }
+              - { label: "Beskrivning", name: description, widget: text }
+              - label: "Fördelar / Punkter (med bock)"
+                name: features
+                widget: list
+                field: { label: "Punkt", name: feature, widget: string }
+              - { label: "Rubrik för prisruta", name: pricing_title, widget: string, default: "Priser privatträning" }
+              - label: "Prispaket"
+                name: pricing_packages
+                widget: list
+                fields:
+                  - { label: "Paketnamn", name: name, widget: string }
+                  - { label: "Pris", name: price, widget: string }
+                  - { label: "Beskrivning / Detalj", name: detail, widget: string }
+              - { label: "Bokningsknapp text", name: cta_text, widget: string, default: "Boka privatkonsultation" }
+
+          # Om mig
+          - label: "4. Om mig (Kristin)"
+            name: about
+            widget: object
+            fields:
+              - { label: "Underrubrik", name: subtitle, widget: string, default: "Om Hund Hälsa Kunskap" }
+              - { label: "Huvudrubrik", name: title, widget: string, default: "Hej, jag heter Kristin!" }
+              - { label: "Foto på Kristin", name: image, widget: image, default: "/img/enzo06_webb.jpg" }
+              - { label: "Namn på fotobricka", name: badge_name, widget: string, default: "Kristin Ivarsson" }
+              - { label: "Titel på fotobricka", name: badge_title, widget: string, default: "Diplomerad instruktör" }
+              - label: "Textstycken (Brödtext)"
+                name: paragraphs
+                widget: list
+                field: { label: "Stycke", name: paragraph, widget: text }
+              - label: "Meriter & Kvalifikationer"
+                name: qualifications
+                widget: list
+                field: { label: "Merit", name: qualification, widget: string }
+
+          # Kontaktinfo
+          - label: "5. Kontaktuppgifter & Område"
+            name: contact
+            widget: object
+            fields:
+              - { label: "E-postadress", name: email, widget: string, default: "kristin@hundhalsakunskap.se" }
+              - { label: "Instagram-användarnamn", name: instagram, widget: string, default: "hundhalsakunskap" }
+              - { label: "Kursplatser / Område", name: location, widget: string, default: "Sollentuna (Fågelsångsparken, Törnskogen, Sollentuna C)" }
+              - { label: "Verksamhetsområde (SEO-text)", name: service_area, widget: text }
+
+  # ---------------------------------------------------------------------------
+  # 3. BLOGG & ARTIKLAR
+  # ---------------------------------------------------------------------------
   - name: blog
-    label: "Blogg"
+    label: "Blogg & Nyheter"
     folder: content/post
     create: true
     slug: "{{slug}}"
@@ -39,40 +192,36 @@ collections:
       - { label: "Kategorier", name: categories, widget: list, required: false }
       - { label: "Innehåll", name: body, widget: markdown }
 
+  # ---------------------------------------------------------------------------
+  # 4. ENSTAKA SIDOR
+  # ---------------------------------------------------------------------------
   - name: pages
-    label: "Sidor"
+    label: "Fristående sidor"
     editor:
       preview: false
     files:
-      - label: "Om oss"
+      - label: "Om oss sida"
         name: about
         file: content/about.md
         fields:
           - { label: "Titel", name: title, widget: string }
           - { label: "Typ", name: type, widget: hidden, default: "page" }
           - { label: "Innehåll", name: body, widget: markdown }
-      - label: "Kurser"
-        name: kurser
-        file: content/kurser.md
-        fields:
-          - { label: "Titel", name: title, widget: string }
-          - { label: "Typ", name: type, widget: hidden, default: "page" }
-          - { label: "Innehåll", name: body, widget: markdown }
-      - label: "Priser"
+      - label: "Priser sida"
         name: priser
         file: content/priser.md
         fields:
           - { label: "Titel", name: title, widget: string }
           - { label: "Typ", name: type, widget: hidden, default: "page" }
           - { label: "Innehåll", name: body, widget: markdown }
-      - label: "Schema"
+      - label: "Schema sida"
         name: schema
         file: content/schema.md
         fields:
           - { label: "Titel", name: title, widget: string }
           - { label: "Typ", name: type, widget: hidden, default: "page" }
           - { label: "Innehåll", name: body, widget: markdown }
-      - label: "Kontakt"
+      - label: "Kontakt sida"
         name: kontakt
         file: content/kontakt.md
         fields:

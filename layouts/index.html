@@ -1,28 +1,345 @@
 {{ define "main" }}
 
-<div class="container-fluid p-0 mb-4">
-    <img src="/img/enzo_webb–etta.jpg" alt="Hund Hälsa Kunskap" class="hero-banner">
-</div>
+{{ $home := or hugo.Data.homepage .Site.Data.homepage }}
+{{ $hero := index $home "hero" }}
+{{ $courses_sec := index $home "courses_section" }}
+{{ $privat := index $home "private_training" }}
+{{ $about := index $home "about" }}
 
-<div class="container mt-3 mb-3">
-    {{ $paginator := .Paginate ( where .Site.RegularPages.ByPublishDate.Reverse "Type" "!=" "page") }}
-    {{ if .Site.Params.startPageColumns }}
-        <div class="row row-cols-1 row-cols-md-3 g-4 mb-3 gridcards">
-            {{ range $paginator.Pages }}
-                <div class="col">
-                    {{- partial "content_index.html" . -}}
+<!-- Hero Section -->
+<section class="relative overflow-hidden pt-10 pb-16 lg:pt-16 lg:pb-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+
+            <!-- Hero Content -->
+            <div class="lg:col-span-7 space-y-6 text-left">
+                <div
+                    class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-100/80 text-brand-800 text-xs sm:text-sm font-semibold border border-brand-200 shadow-sm">
+                    <i class="fa-solid fa-location-dot text-brand-800"></i>
+                    {{ with $hero.location_badge }}{{ . }}{{ else }}Sollentuna &amp; norra Stockholm{{ end }}
                 </div>
+
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold text-brand-800 leading-tight">
+                    {{ with $hero.title }}{{ . }}{{ else }}Glädjefylld &amp; belöningsbaserad hundträning{{ end }}
+                </h1>
+
+                <p class="text-stone-600 text-lg sm:text-xl leading-relaxed max-w-2xl">
+                    {{ with $hero.description }}{{ . }}{{ else }}Bygg en stark, trygg och harmonisk relation med din hund. Vi erbjuder moderna valpkurser, vardagsträning, kantarellsök och privatträning baserad på glädje, samarbete och positiva metoder.{{ end }}
+                </p>
+
+                <!-- CTA Group -->
+                <div class="pt-2 flex flex-col sm:flex-row gap-4">
+                    <a href="{{ with $hero.primary_cta_link }}{{ . }}{{ else }}#kurser{{ end }}"
+                        class="inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-stone-900 font-semibold px-7 py-3.5 rounded-xl shadow-md hover:shadow-lg transition text-base">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        {{ with $hero.primary_cta_text }}{{ . }}{{ else }}Se aktuella kurser{{ end }}
+                    </a>
+                    <a href="{{ with $hero.secondary_cta_link }}{{ . }}{{ else }}#privat{{ end }}"
+                        class="inline-flex items-center justify-center gap-2 bg-white hover:bg-stone-50 text-stone-800 font-semibold px-7 py-3.5 rounded-xl border border-stone-300 shadow-sm transition text-base">
+                        <i class="fa-regular fa-user"></i>
+                        {{ with $hero.secondary_cta_text }}{{ . }}{{ else }}Privat rådgivning{{ end }}
+                    </a>
+                </div>
+
+                <!-- Trust Badges Bar -->
+                {{ with $hero.trust_badges }}
+                <div class="pt-8 border-t border-stone-200/80 grid grid-cols-2 gap-4">
+                    {{ range . }}
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-800 flex-shrink-0">
+                            <i class="{{ .icon }}"></i>
+                        </div>
+                        <span class="text-xs font-semibold text-stone-700 leading-snug">{{ .text }}</span>
+                    </div>
+                    {{ end }}
+                </div>
+                {{ end }}
+
+            </div>
+
+            <!-- Hero Image with Badge Overlay -->
+            <div class="lg:col-span-5 relative">
+                <div class="relative mx-auto max-w-md lg:max-w-none">
+                    <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                        <img src="{{ with $hero.image }}{{ . }}{{ else }}/img/enzo05_webb.jpg{{ end }}" alt="Enzo - Belöningsbaserad hundträning i Sollentuna"
+                            class="w-full h-full object-cover" onerror="this.src='/img/enzo_webb–etta.jpg'">
+                    </div>
+
+                    <!-- Floating Card Badge -->
+                    <div
+                        class="absolute -bottom-6 -left-6 glass-card p-4 rounded-2xl shadow-xl border border-stone-100 hidden sm:flex items-center gap-4 max-w-xs">
+                        <div
+                            class="w-12 h-12 rounded-full bg-accent-500 text-stone-900 flex items-center justify-center font-bold text-lg flex-shrink-0 shadow-sm">
+                            <i class="fa-solid fa-paw"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-stone-500 font-medium">{{ with $hero.floating_quote_author }}{{ . }}{{ else }}Hund Hälsa Kunskap{{ end }}</p>
+                            <p class="text-sm font-semibold text-stone-800">"{{ with $hero.floating_quote }}{{ . }}{{ else }}Pedagogiskt, tryggt och superroligt!{{ end }}"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Course Catalog Section -->
+{{ $courses := where ((.Site.GetPage "section" "kurser").RegularPages) "Params.active" "ne" false }}
+{{ $sorted_courses := sort $courses "Params.weight" "asc" }}
+
+<section id="kurser" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+            <div>
+                <h2 class="text-xs font-bold uppercase tracking-wider text-brand-800 mb-2">
+                    {{ with $courses_sec.subtitle }}{{ . }}{{ else }}Kurser &amp; workshops{{ end }}
+                </h2>
+                <h3 class="font-serif text-3xl sm:text-4xl font-semibold text-stone-900">
+                    {{ with $courses_sec.title }}{{ . }}{{ else }}Aktuellt kursutbud i Sollentuna{{ end }}
+                </h3>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap gap-2" id="course-filters">
+                <button data-filter="all"
+                    class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold transition bg-brand-600 text-stone-900 shadow-sm">Alla
+                    kurser</button>
+                
+                {{ $has_valp := false }}
+                {{ $has_vardag := false }}
+                {{ $has_sok := false }}
+                {{ $has_tema := false }}
+                {{ range $sorted_courses }}
+                    {{ if eq .Params.category "valp" }}{{ $has_valp = true }}{{ end }}
+                    {{ if eq .Params.category "vardag" }}{{ $has_vardag = true }}{{ end }}
+                    {{ if eq .Params.category "sok" }}{{ $has_sok = true }}{{ end }}
+                    {{ if eq .Params.category "tema" }}{{ $has_tema = true }}{{ end }}
+                {{ end }}
+
+                {{ if $has_valp }}
+                <button data-filter="valp"
+                    class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition bg-white border border-stone-300 text-stone-700 hover:bg-stone-50">Valp</button>
+                {{ end }}
+                {{ if $has_vardag }}
+                <button data-filter="vardag"
+                    class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition bg-white border border-stone-300 text-stone-700 hover:bg-stone-50">Vardagslydnad</button>
+                {{ end }}
+                {{ if $has_sok }}
+                <button data-filter="sok"
+                    class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition bg-white border border-stone-300 text-stone-700 hover:bg-stone-50">Sök
+                    &amp; aktivering</button>
+                {{ end }}
+                {{ if $has_tema }}
+                <button data-filter="tema"
+                    class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition bg-white border border-stone-300 text-stone-700 hover:bg-stone-50">Temakurser</button>
+                {{ end }}
+            </div>
+        </div>
+
+        <!-- Course Grid Container -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="course-grid">
+            {{ range $sorted_courses }}
+            {{ $category := .Params.category | default "valp" }}
+            {{ $category_label := .Params.category_label | default "Kurs" }}
+            {{ $badge := .Params.status_badge }}
+            {{ $badge_color := .Params.badge_color | default "emerald" }}
+
+            <div class="course-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-lg transition flex flex-col"
+                data-category="{{ $category }}">
+                <div class="relative h-48 overflow-hidden">
+                    <img src="{{ .Params.image | default "/img/enzo03_webb.jpg" }}" alt="{{ .Title }}"
+                        class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                    <span
+                        class="absolute top-4 left-4 bg-brand-600 text-stone-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                        {{ $category_label }}
+                    </span>
+                    {{ with $badge }}
+                    <span
+                        class="absolute top-4 right-4 {{ if eq $badge_color "blue" }}bg-blue-600 text-white{{ else if eq $badge_color "accent" }}bg-accent-500 text-stone-900{{ else if eq $badge_color "red" }}bg-red-500 text-white{{ else if eq $badge_color "stone" }}bg-stone-600 text-white{{ else }}bg-emerald-500 text-white{{ end }} text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">
+                        {{ . }}
+                    </span>
+                    {{ end }}
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-serif text-xl font-semibold text-stone-900 mb-3">{{ .Title }}</h4>
+                        <p class="text-stone-600 text-sm mb-6 leading-relaxed">
+                            {{ .Params.description }}
+                        </p>
+
+                        <div
+                            class="space-y-2 text-xs font-medium text-stone-600 mb-6 bg-cream p-3.5 rounded-xl border border-stone-200/60">
+                            {{ with .Params.start_date }}
+                            <div class="flex items-center gap-2">
+                                <i class="fa-regular fa-calendar text-brand-800 w-4"></i>
+                                <span><strong>Start:</strong> {{ . }}</span>
+                            </div>
+                            {{ end }}
+                            {{ with .Params.location }}
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-location-dot text-brand-800 w-4"></i>
+                                <span><strong>Plats:</strong> {{ . }}</span>
+                            </div>
+                            {{ end }}
+                            {{ with .Params.price }}
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-tag text-brand-800 w-4"></i>
+                                <span><strong>Pris:</strong> {{ . }}</span>
+                            </div>
+                            {{ end }}
+                        </div>
+                    </div>
+
+                    <button onclick="openBookingModal('{{ .Title }}')"
+                        class="w-full bg-brand-600 hover:bg-brand-700 text-stone-900 font-semibold py-3 rounded-xl transition text-center text-sm shadow-sm">
+                        Anmäl dig här
+                    </button>
+                </div>
+            </div>
             {{ end }}
         </div>
-    {{ else }}
-        {{ range $paginator.Pages }}
-            <div class="mb-3">
-                {{- partial "content_index.html" . -}}
-            </div>
-        {{ end }}
-    {{ end }}
+    </div>
+</section>
 
-    {{ template "_internal/pagination.html" . }}
-</div>
+<!-- Private Consultation Section -->
+<section id="privat" class="py-16 bg-brand-800 text-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-6">
+                <span class="text-xs font-bold uppercase tracking-wider text-accent-500">
+                    {{ with $privat.badge }}{{ . }}{{ else }}Skräddarsydd lösning{{ end }}
+                </span>
+                <h3 class="font-serif text-3xl sm:text-4xl font-semibold leading-tight">
+                    {{ with $privat.title }}{{ . }}{{ else }}Privat hundträning &amp; rådgivning{{ end }}
+                </h3>
+                <p class="text-stone-200 text-base sm:text-lg leading-relaxed">
+                    {{ with $privat.description }}{{ . }}{{ else }}Har du svårt att få kurstiderna att passa, eller behöver du hjälp med specifika utmaningar som hundmöten, koppeldrag, skällande, reaktivitet eller ensamhetsträning? Vi skapar en personlig träningsplan anpassad för er vardag.{{ end }}
+                </p>
+
+                {{ with $privat.features }}
+                <ul class="space-y-3 text-sm text-stone-200">
+                    {{ range . }}
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-check text-accent-500"></i>
+                        <span>{{ . }}</span>
+                    </li>
+                    {{ end }}
+                </ul>
+                {{ end }}
+
+                <div class="pt-4">
+                    <button onclick="openBookingModal('Privat rådgivning / enskild träning')"
+                        class="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-stone-900 font-semibold px-6 py-3.5 rounded-xl shadow-md transition">
+                        <i class="fa-regular fa-envelope"></i>
+                        {{ with $privat.cta_text }}{{ . }}{{ else }}Boka privatkonsultation{{ end }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5">
+                <div
+                    class="bg-brand-700/60 p-8 rounded-3xl border border-brand-600/60 backdrop-blur-sm space-y-4 shadow-xl">
+                    <h4 class="font-serif text-xl font-semibold text-white">
+                        {{ with $privat.pricing_title }}{{ . }}{{ else }}Priser privatträning{{ end }}
+                    </h4>
+
+                    {{ with $privat.pricing_packages }}
+                    {{ range $idx, $pkg := . }}
+                    <div class="border-b border-brand-600/80 pb-3 last:border-b-0 last:pb-0">
+                        <div class="flex justify-between font-semibold text-sm">
+                            <span>{{ $pkg.name }}</span>
+                            <span class="text-accent-500">{{ $pkg.price }}</span>
+                        </div>
+                        {{ with $pkg.detail }}
+                        <p class="text-xs text-stone-300 mt-1">{{ . }}</p>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Instructor Section -->
+<section id="om-mig" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-5">
+                <div class="relative">
+                    <div class="aspect-square rounded-3xl overflow-hidden shadow-xl border-4 border-cream">
+                        <img src="{{ with $about.image }}{{ . }}{{ else }}/img/enzo06_webb.jpg{{ end }}" alt="Kristin Ivarsson - Hundinstruktör"
+                            class="w-full h-full object-cover" onerror="this.src='/img/enzo06_webb.jpg'">
+                    </div>
+                    <div
+                        class="absolute -bottom-4 -right-4 bg-accent-500 text-stone-900 p-4 rounded-2xl shadow-lg text-center font-bold text-xs uppercase tracking-wider">
+                        {{ with $about.badge_name }}{{ . }}{{ else }}Kristin Ivarsson{{ end }}<br>
+                        <span class="font-normal text-stone-800 text-[11px] capitalize">{{ with $about.badge_title }}{{ . }}{{ else }}Diplomerad instruktör{{ end }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-5">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-brand-800">
+                    {{ with $about.subtitle }}{{ . }}{{ else }}Om Hund Hälsa Kunskap{{ end }}
+                </h2>
+                <h3 class="font-serif text-3xl sm:text-4xl font-semibold text-stone-900">
+                    {{ with $about.title }}{{ . }}{{ else }}Hej, jag heter Kristin!{{ end }}
+                </h3>
+
+                {{ with $about.paragraphs }}
+                {{ range . }}
+                <p class="text-stone-600 leading-relaxed">
+                    {{ . }}
+                </p>
+                {{ end }}
+                {{ end }}
+
+                {{ with $about.qualifications }}
+                <div class="pt-2 grid sm:grid-cols-2 gap-4 text-sm font-semibold text-stone-800">
+                    {{ range . }}
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-check-circle text-brand-800"></i>
+                        <span>{{ . }}</span>
+                    </div>
+                    {{ end }}
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Course Filtering Logic
+    document.addEventListener('DOMContentLoaded', () => {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const courseCards = document.querySelectorAll('.course-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-brand-600', 'text-stone-900', 'shadow-sm');
+                    b.classList.add('bg-white', 'text-stone-700', 'border', 'border-stone-300');
+                });
+                btn.classList.add('active', 'bg-brand-600', 'text-stone-900', 'shadow-sm');
+                btn.classList.remove('bg-white', 'text-stone-700', 'border', 'border-stone-300');
+
+                const filter = btn.getAttribute('data-filter');
+
+                courseCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+</script>
 
 {{ end }}

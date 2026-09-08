@@ -1,0 +1,31 @@
+{
+  "name": "hhk",
+  "version": "1.0.0",
+  "description": "Webbplats om hundträning, byggd med [Hugo](https://gohugo.io/) och temat [Bootstrap-BP](https://github.com/spech66/bootstrap-bp-hugo-theme).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hhk00510/hhk00510.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hhk00510/hhk00510.github.io/issues"
+  },
+  "homepage": "https://github.com/hhk00510/hhk00510.github.io#readme",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "autoprefixer": "^10.5.5",
+    "postcss": "^8.5.28",
+    "postcss-cli": "^12.0.0",
+    "tailwindcss": "^3.4.19"
+  },
+  "dependencies": {
+    "lightningcss": "^1.33.0"
+  }
+}

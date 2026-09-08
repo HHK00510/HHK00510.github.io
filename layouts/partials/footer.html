@@ -1,0 +1,83 @@
+<!-- Contact & Footer Section -->
+{{ $contact := index (or hugo.Data.homepage .Site.Data.homepage) "contact" }}
+<footer id="kontakt" class="bg-stone-900 text-stone-300 pt-16 pb-12 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-stone-800">
+            
+            <!-- Brand Info -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-brand-600 text-stone-900 flex items-center justify-center text-lg shadow-sm">
+                        <i class="fa-solid fa-paw"></i>
+                    </div>
+                    <span class="font-serif font-semibold text-lg text-white">{{ .Site.Title }}</span>
+                </div>
+                <p class="text-xs text-stone-400 leading-relaxed">
+                    Belöningsbaserad hundträning och friskvård i Sollentuna och norra Stockholm. Grundat och drivs av diplomerad hundinstruktör Kristin Ivarsson.
+                </p>
+                <div class="flex items-center gap-3 pt-1">
+                    <a href="https://www.instagram.com/{{ with $contact.instagram }}{{ . }}{{ else }}hundhalsakunskap{{ end }}/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-stone-800 hover:bg-brand-600 hover:text-stone-900 flex items-center justify-center text-stone-300 transition text-sm">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="mailto:{{ with $contact.email }}{{ . }}{{ else }}kristin@hundhalsakunskap.se{{ end }}" class="w-8 h-8 rounded-full bg-stone-800 hover:bg-brand-600 hover:text-stone-900 flex items-center justify-center text-stone-300 transition text-sm">
+                        <i class="fa-regular fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Fast Navigation -->
+            <div>
+                <h5 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Snabblänkar</h5>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="{{ if not .IsHome }}/{{ end }}#kurser" class="hover:text-brand-600 transition">Valpkurser &amp; vardagslydnad</a></li>
+                    <li><a href="{{ if not .IsHome }}/{{ end }}#kurser" class="hover:text-brand-600 transition">Kantarellsök &amp; aktivering</a></li>
+                    <li><a href="{{ if not .IsHome }}/{{ end }}#privat" class="hover:text-brand-600 transition">Privat rådgivning &amp; priser</a></li>
+                    <li><a href="{{ if not .IsHome }}/{{ end }}#om-mig" class="hover:text-brand-600 transition">Om Kristin &amp; CV</a></li>
+                    <li><a href="{{ if not .IsHome }}/{{ end }}#metod" class="hover:text-brand-600 transition">Vår träningsfilosofi</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div>
+                <h5 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Kontakt</h5>
+                <ul class="space-y-3 text-xs">
+                    <li class="flex items-start gap-2.5">
+                        <i class="fa-regular fa-envelope text-accent-500 mt-0.5"></i>
+                        <a href="mailto:{{ with $contact.email }}{{ . }}{{ else }}kristin@hundhalsakunskap.se{{ end }}" class="hover:text-white transition">{{ with $contact.email }}{{ . }}{{ else }}kristin@hundhalsakunskap.se{{ end }}</a>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                        <i class="fa-solid fa-location-dot text-accent-500 mt-0.5"></i>
+                        <span>{{ with $contact.location }}{{ . }}{{ else }}Sollentuna (Fågelsångsparken, Törnskogen, Sollentuna C){{ end }}</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                        <i class="fa-brands fa-instagram text-accent-500 mt-0.5"></i>
+                        <a href="https://www.instagram.com/{{ with $contact.instagram }}{{ . }}{{ else }}hundhalsakunskap{{ end }}/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">@{{ with $contact.instagram }}{{ . }}{{ else }}hundhalsakunskap{{ end }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Local SEO Info -->
+            <div>
+                <h5 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Verksamhetsområde</h5>
+                <p class="text-xs text-stone-400 leading-relaxed">
+                    {{ with $contact.service_area }}{{ . }}{{ else }}Vi håller kurser och privatträningar i Sollentuna, Helenelund, Rotebro, Edsberg, Silverdal, Täby, Danderyd och övriga Norrort i Stockholm samt sommarkurser i Söderhamn.{{ end }}
+                </p>
+                <div class="mt-3">
+                    <button onclick="openBookingModal('Allmän kontakt')" class="text-xs font-semibold text-accent-500 hover:text-accent-600 underline">
+                        Ställ en fråga via formuläret &rarr;
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright -->
+        <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-stone-500 gap-4">
+            <p>&copy; {{ now.Format "2006" }} {{ .Site.Title }}. Alla rättigheter förbehållna.</p>
+            <p class="flex items-center gap-2">
+                <i class="fa-solid fa-certificate text-brand-600"></i>
+                Diplomerad hundinstruktör
+            </p>
+        </div>
+    </div>
+</footer>

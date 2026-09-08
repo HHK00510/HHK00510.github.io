@@ -1,6 +1,5 @@
 baseURL = "https://hundhalsakunskap.se/"
 title = "Hund Hälsa Kunskap"
-theme = "bootstrap-bp"
 DefaultContentLanguage = "sv"
 languageCode = "sv"
 enableRobotsTXT = true
@@ -29,70 +28,7 @@ enableRobotsTXT = true
 [params.social]
   instagram = "hundhalsakunskap"
 
-[menu]
 
-  [[menu.main]]
-    identifier = "about"
-    name = "Om oss"
-    url = "/about/"
-    weight = 10
-    pre = "<i class='fas fa-users'></i>"
-
-  [[menu.main]]
-    identifier = "blog"
-    name = "Blogg"
-    url = "/post/"
-    weight = 20
-    pre = "<i class='fas fa-blog'></i>"
-
-  [[menu.main]]
-    identifier = "kurser"
-    name = "Kurser"
-    url = "/kurser/"
-    weight = 30
-    pre = "<i class='fas fa-graduation-cap'></i>"
-
-  [[menu.main]]
-    identifier = "priser"
-    name = "Priser"
-    url = "/priser/"
-    weight = 40
-    pre = "<i class='fas fa-tag'></i>"
-
-  [[menu.main]]
-    identifier = "schema"
-    name = "Schema"
-    url = "/schema/"
-    weight = 50
-    pre = "<i class='fas fa-calendar-alt'></i>"
-
-  [[menu.main]]
-    identifier = "kontakt"
-    name = "Kontakt"
-    url = "/kontakt/"
-    weight = 60
-    pre = "<i class='fas fa-envelope'></i>"
-
-  [[menu.footer]]
-    identifier = "about"
-    name = "Om oss"
-    url = "/about/"
-    weight = 10
-    pre = "<i class='fas fa-users'></i>"
-
-  [[menu.footer]]
-    identifier = "kurser"
-    name = "Kurser"
-    url = "/kurser/"
-    weight = 20
-    pre = "<i class='fas fa-graduation-cap'></i>"
-
-  [[menu.footer]]
-    identifier = "kontakt"
-    name = "Kontakt"
-    url = "/kontakt/"
-    weight = 30
-    pre = "<i class='fas fa-envelope'></i>"
 
 [taxonomies]
   category = "categories"

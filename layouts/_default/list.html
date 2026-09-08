@@ -1,0 +1,41 @@
+{{ define "main" }}
+<div class="py-12 bg-white border-b border-stone-200/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="flex items-center gap-2 text-xs font-medium text-stone-500 mb-6">
+            <a href="/" class="hover:text-brand-800 transition">Startsida</a>
+            <span>/</span>
+            <span class="text-stone-800">{{ .Title }}</span>
+        </nav>
+
+        <h1 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 mb-2">{{ .Title }}</h1>
+        <p class="text-stone-600 text-sm">Artiklar, nyheter och tips från Hund Hälsa Kunskap</p>
+    </div>
+</div>
+
+<div class="py-12 bg-cream">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="space-y-6">
+            {{ range .Pages }}
+            <article class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-stone-200/80 hover:shadow-md transition">
+                <span class="text-xs text-stone-500 font-medium">{{ .Date.Format "2006-01-02" }}</span>
+                <h2 class="font-serif text-2xl font-semibold text-stone-900 mt-1 mb-3">
+                    <a href="{{ .RelPermalink }}" class="hover:text-brand-800 transition">{{ .Title }}</a>
+                </h2>
+                <p class="text-stone-600 text-sm leading-relaxed mb-4">
+                    {{ .Summary | plainify | truncate 200 }}
+                </p>
+                <a href="{{ .RelPermalink }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-800 hover:text-brand-700">
+                    Läs hela inlägget <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </article>
+            {{ end }}
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="/" class="inline-flex items-center gap-2 text-sm font-semibold text-brand-800 hover:text-brand-700">
+                <i class="fa-solid fa-arrow-left"></i> Tillbaka till startsidan
+            </a>
+        </div>
+    </div>
+</div>
+{{ end }}

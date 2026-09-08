@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default "sv" }}" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ block "title" . }}{{ .Site.Title }} | {{ .Site.Params.description | default "Belöningsbaserad hundträning i Sollentuna" }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+
+    <!-- Open Graph / Meta -->
+    <meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}">
+    <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta property="og:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}{{ "/img/enzo02_webb.jpg" | absURL }}{{ end }}">
+    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+    <link rel="canonical" href="{{ .Permalink }}">
+
+    {{ template "_internal/schema.html" . }}
+    {{ template "_internal/twitter_cards.html" . }}
+
+    <!-- Favicon & Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <meta name="theme-color" content="#7ADCF6">
+
+    <!-- Tailwind CSS (via Hugo PostCSS) -->
+    {{ $css := resources.Get "css/main.css" | postCSS | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts: Lora & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FAF8F5;
+            color: #222222;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+        }
+        .modal-open {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-charcoal bg-cream selection:bg-brand-200 selection:text-brand-800 flex flex-col min-h-screen">
+
+    {{- partial "header.html" . -}}
+
+    <main class="flex-grow">
+        {{- block "main" . }}{{- end }}
+    </main>
+
+    {{- partial "booking_modal.html" . -}}
+    {{- partial "footer.html" . -}}
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.toggle('hidden');
+                mobileBtn.setAttribute('aria-expanded', !isHidden);
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+
+        // Booking Modal Management
+        const modal = document.getElementById('booking-modal');
+        const courseInput = document.getElementById('selected-course-input');
+        const bookingForm = document.getElementById('course-booking-form');
+        const successMsg = document.getElementById('booking-success');
+
+        function openBookingModal(courseName) {
+            if (!modal) return;
+            if (courseInput) {
+                courseInput.value = courseName || 'Allmän förfrågan / Rådgivning';
+            }
+            if (bookingForm) {
+                bookingForm.reset();
+                if (courseInput) courseInput.value = courseName || 'Allmän förfrågan / Rådgivning';
+                bookingForm.classList.remove('hidden');
+            }
+            if (successMsg) {
+                successMsg.classList.add('hidden');
+            }
+            modal.classList.remove('hidden');
+            modal.scrollTop = 0;
+            document.body.classList.add('modal-open');
+        }
+
+        function closeBookingModal() {
+            if (!modal) return;
+            modal.classList.add('hidden');
+            document.body.classList.remove('modal-open');
+        }
+
+        // Close on Escape key press
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+                closeBookingModal();
+            }
+        });
+
+        // Close on background / overlay tap
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal || e.target.id === 'modal-wrapper') {
+                    closeBookingModal();
+                }
+            });
+        }
+
+        // Form Submission with AJAX and Fallback
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = document.getElementById('course-booking-form');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Skickar...';
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('https://formsubmit.co/ajax/kristin@hundhalsakunskap.se', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                form.classList.add('hidden');
+                successMsg.classList.remove('hidden');
+            } catch (err) {
+                console.log('Local test submit:', Object.fromEntries(formData.entries()));
+                form.classList.add('hidden');
+                successMsg.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
+        }
+    </script>
+</body>
+</html>

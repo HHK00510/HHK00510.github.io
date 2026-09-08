@@ -1,0 +1,91 @@
+<!-- Contact / Booking Form Modal -->
+<div id="booking-modal" class="fixed inset-0 z-50 hidden bg-stone-900/70 backdrop-blur-sm overflow-y-auto overscroll-y-contain" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div id="modal-wrapper" class="min-h-full flex items-start sm:items-center justify-center p-3 sm:p-6 py-8 sm:py-12">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl relative border border-stone-100 transform transition-all my-auto" onclick="event.stopPropagation()">
+            
+            <!-- Top Header with Title and Large Easy-to-Tap Close Button -->
+            <div class="flex items-start justify-between gap-3 mb-3 pb-3 border-b border-stone-100">
+                <div class="flex-1 min-w-0 pr-1">
+                    <span class="block text-xs font-bold uppercase tracking-wider text-brand-800">Bokningsförfrågan</span>
+                    <h3 id="modal-title" class="font-serif text-lg sm:text-2xl font-semibold text-stone-900 mt-1 leading-snug break-words">Anmäl dig eller ställ en fråga</h3>
+                </div>
+                <!-- Large Touch Target Close Button (44px min for iOS) -->
+                <button type="button" onclick="closeBookingModal()" class="w-10 h-10 sm:w-11 sm:h-11 bg-stone-100 hover:bg-stone-200 active:bg-stone-300 text-stone-700 rounded-full flex items-center justify-center transition flex-shrink-0 shadow-sm" aria-label="Stäng formulär">
+                    <i class="fa-solid fa-xmark text-lg sm:text-xl"></i>
+                </button>
+            </div>
+
+            <p class="text-xs text-stone-500 mb-5">Fyll i formuläret nedan så återkommer Kristin inom 24 timmar.</p>
+
+            <form id="course-booking-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <input type="hidden" name="_subject" value="Ny bokningsförfrågan från hundhalsakunskap.se">
+                <input type="hidden" name="_template" value="table">
+
+                <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1" for="selected-course-input">Vald kurs / tjänst</label>
+                    <input type="text" id="selected-course-input" name="kurs_tjanst" readonly class="w-full bg-stone-100 border border-stone-300 rounded-xl px-4 py-2.5 text-sm font-semibold text-brand-800 focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-stone-700 mb-1" for="booking-name">Ditt namn *</label>
+                        <input type="text" id="booking-name" name="namn" required placeholder="För- och efternamn" class="w-full border border-stone-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none bg-stone-50/50">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-stone-700 mb-1" for="booking-phone">Telefon *</label>
+                        <input type="tel" id="booking-phone" name="telefon" required placeholder="070-123 45 67" class="w-full border border-stone-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none bg-stone-50/50">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1" for="booking-email">E-postadress *</label>
+                    <input type="email" id="booking-email" name="email" required placeholder="din.epost@doman.se" class="w-full border border-stone-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none bg-stone-50/50">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-stone-700 mb-1" for="booking-dog-name">Hundens namn &amp; ras</label>
+                        <input type="text" id="booking-dog-name" name="hund_namn_ras" placeholder="t.ex. Enzo, Golden Retriever" class="w-full border border-stone-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none bg-stone-50/50">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-stone-700 mb-1" for="booking-dog-age">Hundens ålder</label>
+                        <input type="text" id="booking-dog-age" name="hund_alder" placeholder="t.ex. 8 månader" class="w-full border border-stone-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none bg-stone-50/50">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1" for="booking-message">Meddelande / träningsmål</label>
+                    <textarea id="booking-message" name="meddelande" rows="3" placeholder="Berätta kort om er situation eller om du har några frågor..." class="w-full border border-stone-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none bg-stone-50/50"></textarea>
+                </div>
+
+                <!-- Action Buttons: Submit & Clear Mobile Cancel Button -->
+                <div class="pt-2 space-y-2">
+                    <button type="submit" class="w-full bg-accent-500 hover:bg-accent-600 active:bg-accent-700 text-stone-900 font-bold py-3.5 rounded-xl transition shadow-md text-sm flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-paper-plane"></i>
+                        Skicka bokningsförfrågan
+                    </button>
+
+                    <!-- Cancel Button (Visible on Mobile only) -->
+                    <button type="button" onclick="closeBookingModal()" class="w-full sm:hidden bg-stone-100 hover:bg-stone-200 active:bg-stone-300 text-stone-700 font-semibold py-3 rounded-xl transition text-sm flex items-center justify-center gap-2 border border-stone-200">
+                        <i class="fa-solid fa-xmark"></i>
+                        Avbryt och stäng
+                    </button>
+                </div>
+            </form>
+
+            <!-- Success Confirmation Screen -->
+            <div id="booking-success" class="hidden text-center py-8 space-y-4">
+                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl shadow-sm">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h4 class="font-serif text-2xl font-semibold text-stone-900">Tack för din anmälan!</h4>
+                <p class="text-sm text-stone-600 max-w-sm mx-auto">Vi har tagit emot dina uppgifter. Kristin återkommer till dig inom kort med bekräftelse och kursinformation.</p>
+                <div class="pt-2">
+                    <button type="button" onclick="closeBookingModal()" class="w-full sm:w-auto inline-block bg-brand-800 hover:bg-brand-700 active:bg-brand-900 text-white font-semibold px-7 py-3 rounded-xl text-sm transition shadow-sm">
+                        Stäng fönstret
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
