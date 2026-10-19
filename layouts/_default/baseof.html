@@ -6,6 +6,7 @@
     <title>{{ block "title" . }}{{ .Site.Title }} | {{ .Site.Params.description | default "Belöningsbaserad hundträning i Sollentuna" }}{{ end }}</title>
     <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://formsubmit.co; media-src 'self';">
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
 
     <!-- Open Graph / Meta -->
     <meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}">
